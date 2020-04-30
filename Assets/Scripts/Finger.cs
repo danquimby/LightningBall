@@ -5,23 +5,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class Finger : MonoBehaviour
+public class Finger : Actor
 {
-    [SerializeField] private Text _text;
-    
+    /// <summary>
+    /// Event bump to ball
+    /// </summary>
+    /// <param name="other"></param>
     void OnTriggerEnter2D(Collider2D other)
     {
-        try
+        Ball ball = other.gameObject.GetComponent<Ball>();
+        if (ball != null)
         {
-            Ball ball = other.gameObject.GetComponent<Ball>();
-            if (ball != null)
-            {
-                ball.Kick(Random.Range(5,15));
-            }
+            ball.Kick(Random.Range(5,15));
         }
-        catch (Exception e)
-        {
-            _text.text = e.ToString();
-        }
+
     }
 }
